@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>首充礼包</title>
+    <link rel="stylesheet" href="//fepublic.lizhi.fm/iconfont/index.css">
     <script>
         ;
         (function() {
@@ -16,13 +17,13 @@
       if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
           var version = parseFloat(RegExp.$1);
           if (version > 2.3) {
-              var phoneScale = parseInt(window.screen.width) / 828;
-              document.write('<meta name="viewport" content="width=828, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+              var phoneScale = parseInt(window.screen.width) * 1  / 300;
+              document.write('<meta name="viewport" content="width=300, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
           } else {
-              document.write('<meta name="viewport" content="width=828, target-densitydpi=device-dpi">');
+              document.write('<meta name="viewport" content="width=300, target-densitydpi=device-dpi">');
           }
       } else {
-          document.write('<meta name="viewport" content="width=828, user-scalable=no, target-densitydpi=device-dpi">');
+          document.write('<meta name="viewport" content="width=300, user-scalable=no, target-densitydpi=device-dpi">');
       }
 
       // window.onerror = function(a, b, c) {
