@@ -1,9 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="first_recharge">
     <c-title :text="title"></c-title>
-    <!-- <img class="logo" src="../assets/images/logo.png"> -->
-    <p class="welcome">欢迎使用 vue</p>
-    <div v-html="content"></div>
+    
   </div>
 </template>
 

@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 
 // 创建一个路由对象用于管理页面的路由
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes: routes
 });
 

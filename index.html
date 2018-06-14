@@ -2,10 +2,39 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>my-first-vue-app</title>
+    <title>首充礼包</title>
+    <script>
+        ;
+        (function() {
+            var src = '//cdn.bootcss.com/eruda/1.2.6/eruda.min.js';
+            // if (!/dev=true/.test(window.location) && localStorage.getItem('dev') != 'true') return;
+            document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+            document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
+        })();
+    </script>
+    <script>
+      if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+          var version = parseFloat(RegExp.$1);
+          if (version > 2.3) {
+              var phoneScale = parseInt(window.screen.width) / 828;
+              document.write('<meta name="viewport" content="width=828, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+          } else {
+              document.write('<meta name="viewport" content="width=828, target-densitydpi=device-dpi">');
+          }
+      } else {
+          document.write('<meta name="viewport" content="width=828, user-scalable=no, target-densitydpi=device-dpi">');
+      }
+
+      // window.onerror = function(a, b, c) {
+      //     alert(a);
+      //     alert(b);
+      //     alert(c);
+      // }
+  </script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

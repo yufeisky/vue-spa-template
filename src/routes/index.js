@@ -19,5 +19,6 @@ const routes = [
 
 // 404 页
 routes.push({path: '*', component: NotFound, name: 'notfound'});
+// routes.push({path: '*', component: Hello, name: 'hello'});
 
 export default routes;
