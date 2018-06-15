@@ -18,7 +18,7 @@ const router = new VueRouter({
 });
 
 // 创建一个 store 对象用于管理应用状态
-const store = new Vuex.Store(storeOption);
+const store = new Vuex.Store({storeOption});
 
 window.__lendApp__ = new Vue({
   el: '#app',

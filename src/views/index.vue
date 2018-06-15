@@ -12,7 +12,9 @@
     <!-- lzIcon-status-tick_circle -->
     <a class="protocol" href="javascript:;">
         <label @click="toggleProtocol"><i class="lzIcon-status-tick_circle_fill icon_proto" :class="`${isAgree?'yes':''}`"></i>我已阅读并同意</label>
-        <span>购买服务协议</span></a>
+        <span>购买服务协议</span>
+    </a>
+    <paySelectPopup />
   </div>
 </template>
 
@@ -21,6 +23,8 @@
   import {mapState} from 'vuex';
   import cTitle from 'components/title';
   import item from 'components/item';
+  import paySelectPopup from 'components/paySelectPopup';
+
   export default {
     data () {
       return {
@@ -43,7 +47,7 @@
       // this.getContent();
     },
 
-    components: {cTitle,item}
+    components: {cTitle,item,paySelectPopup}
   }
 
 </script>
