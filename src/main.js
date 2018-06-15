@@ -7,6 +7,8 @@ import VueRouter from 'vue-router';
 import App from './app';
 import routes from './routes';
 import storeOption from './vuex/store';
+import lz from '@lizhife/lz-jssdk';
+import FastClick from 'fastclick';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
@@ -18,7 +20,7 @@ const router = new VueRouter({
 });
 
 // 创建一个 store 对象用于管理应用状态
-const store = new Vuex.Store({storeOption});
+const store = new Vuex.Store(storeOption);
 
 window.__lendApp__ = new Vue({
   el: '#app',
@@ -41,3 +43,31 @@ document.body.addEventListener('click', function (event) {
     }, 400);
   }
 }, false);
+
+
+window.lz = lz;
+
+lz.config({
+    debug: false,
+    url: document.location.protocol == 'https:' ? 'https://h5security.lizhi.fm/jsBridgeConfig/get' : '',
+    apiList: [
+        'getSessionUser',
+        'toAction',
+        'configShareUrl',
+        'isSupportFunc',
+        'scanUser',
+        'scanRadio',
+        'getToken',
+        'setAppDisplayInfo',
+        'requestBuyProduct',
+        'getSupportedPaymentTypeList',
+        'getUdid',
+    ],
+    eventList: ['user:login', 'LizhiJSBridgeReady','buyProductFinish','payFinish',]
+});
+
+if ('addEventListener' in document) {
+    window.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+    }, false);
+}

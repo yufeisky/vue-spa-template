@@ -21,18 +21,12 @@
       }
     },
     methods: {
-      async getContent () {
-        const response = await fetch('/api/hello');
-        this.content = await response.text();
-      },
       toggleProtocol(){
           let self = this;
           self.isAgree=!self.isAgree;
       }
     },
     mounted () {
-      this.$store.commit('message', '欢迎使用 vue！');
-      // this.getContent();
     },
 
     components: {cTitle,item}

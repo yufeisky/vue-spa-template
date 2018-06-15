@@ -3,50 +3,73 @@
     <c-title :text="title" :type="`pay`"></c-title>
     <div class="desc">首次支付1元，即享价值百元豪华礼包</div>
     <div class="gift_box">
-        <item />
-        <item />
-        <item />
+        <item v-for="p in list" :url="p.url" :name="`${p.name}`" :key="`${p.name}`"/>
+        <!-- <item />
+        <item /> -->
     </div>
-    <!-- <div class="btn" >一元抢</div> -->
-    <router-link class="btn" to="success"  replace>一元抢</router-link>
+    <div class="btn" @click="pay">一元抢</div>
+    <!-- <router-link class="btn" to="success"  replace>一元抢</router-link> -->
     <!-- lzIcon-status-tick_circle -->
     <a class="protocol" href="javascript:;">
         <label @click="toggleProtocol"><i class="lzIcon-status-tick_circle_fill icon_proto" :class="`${isAgree?'yes':''}`"></i>我已阅读并同意</label>
         <span>购买服务协议</span>
     </a>
-    <paySelectPopup />
+    <paySelectPopup :payFinishCallback="payFinish"   :productId="`2604096572172069939`"/>
   </div>
 </template>
 
 <script>
 
-  import {mapState} from 'vuex';
   import cTitle from 'components/title';
   import item from 'components/item';
   import paySelectPopup from 'components/paySelectPopup';
+  import axios from 'axios';
 
   export default {
     data () {
       return {
         title: '首充礼包',
-        isAgree:false,
+        isAgree:true,
       }
     },
+    computed:{
+        list(){
+            return this.$store.state.index.giftList
+        }
+    },
     methods: {
-      async getContent () {
-        const response = await fetch('/api/hello');
-        this.content = await response.text();
-      },
       toggleProtocol(){
           let self = this;
           self.isAgree=!self.isAgree;
-      }
+      },
+      showPayPopup(){
+        this.$store.commit('popup_show',{
+            popup_show : true
+        });
+      },
+      closePayPopup(){
+        this.$store.commit('popup_show',{
+            popup_show : false
+        });
+      },
+      pay(){
+          let self = this;
+          if(self.isAgree){
+            self.showPayPopup();
+          }else{
+              alert('请阅读并同意购买服务协议');
+          }
+      },
+      payFinish(ret){
+        let self = this;
+        self.closePayPopup();
+        self.$router.replace('success');
+      },
     },
     mounted () {
-      this.$store.commit('message', '欢迎使用 vue！');
-      // this.getContent();
+        let self = this;
+        this.$store.dispatch('giftList');
     },
-
     components: {cTitle,item,paySelectPopup}
   }
 

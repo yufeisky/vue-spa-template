@@ -1,14 +1,17 @@
 <template>
   <div class="gift_item">
     <div class="img">
-      <img src="../assets/images/logo.png" alt="">
+      <img :src="url" alt="">
     </div>
-    <div class="name">萌新勋章(3天)</div>
+    <div class="name">{{name}}</div>
   </div>
 </template>
 
 <script>
   export default {
+    props:[
+        'name','url'
+    ],
     mounted: function () {
     }
   }
