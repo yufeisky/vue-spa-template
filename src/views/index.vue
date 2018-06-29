@@ -3,18 +3,18 @@
     <c-title :text="title" :type="`pay`"></c-title>
     <div class="desc">首次支付1元，即享价值百元豪华礼包</div>
     <div class="gift_box">
-        <item v-for="p in list" :url="p.url" :name="`${p.name}`" :key="`${p.name}`"/>
+        <item v-for="p in list" :url="p.url" :name="`${p.title}`" :key="`${p.title}`"/>
         <!-- <item />
         <item /> -->
     </div>
     <div class="btn" @click="pay">一元抢</div>
     <!-- <router-link class="btn" to="success"  replace>一元抢</router-link> -->
     <!-- lzIcon-status-tick_circle -->
-    <a class="protocol" href="javascript:;">
+    <div class="protocol">
         <label @click="toggleProtocol"><i class="lzIcon-status-tick_circle_fill icon_proto" :class="`${isAgree?'yes':''}`"></i>我已阅读并同意</label>
-        <span>购买服务协议</span>
-    </a>
-    <paySelectPopup :payFinishCallback="payFinish"   :productId="`2604096572172069939`"/>
+        <a href="javascript:;" @click="toProtocolPage">购买服务协议</a>
+    </div>
+    <paySelectPopup :payFinishCallback="payFinish" :productId="productId"/>
   </div>
 </template>
 
@@ -24,7 +24,7 @@
   import item from 'components/item';
   import paySelectPopup from 'components/paySelectPopup';
   import axios from 'axios';
-
+  import { getSearchParam } from 'utils/utils';
   export default {
     data () {
       return {
@@ -35,6 +35,12 @@
     computed:{
         list(){
             return this.$store.state.index.giftList
+        },
+        productId(){
+            return this.$store.state.index.productId
+        },
+        liveId(){
+            return this.$store.state.index.liveId
         }
     },
     methods: {
@@ -65,10 +71,37 @@
         self.closePayPopup();
         self.$router.replace('success');
       },
+      toProtocolPage(){
+          let self = this;
+          lz.popupLiveGiftDialog({
+                "liveId": `${self.liveId}`, // 转为字符串的liveId
+                "tabPosition": 0 //礼物选中的tab，指第一个tab
+          })
+        //   lz.toAction({
+        //         "action":{
+        //             "type": 7,
+        //             "url": "https://short.lizhi.fm/payment/coin-service.html",
+        //             "urlShareable": false, // 表示内部打开url是否可分享，默认为true
+        //             "isFull" : false, // 默认false, 不全屏。
+        //             "isLight" : false, // 默认false，显示深色icon。尽可能适配系统状态栏。仅isFull=true时有效。
+        //             "wk" : true
+        //         } 
+        //     })
+      },
+      setLiveId(){
+        let liveId = getSearchParam('liveId');
+        let taskId = getSearchParam('taskId');
+        this.$store.commit('setUrlParm',{
+            liveId,
+            taskId
+        });
+      }
     },
     mounted () {
         let self = this;
-        this.$store.dispatch('giftList');
+        this.setLiveId();        
+        this.$store.dispatch('getGiftData');
+
     },
     components: {cTitle,item,paySelectPopup}
   }
@@ -116,7 +149,7 @@
             text-align: center;
             color: rgba(255, 255, 255, 0.5);
             margin-top: 10px;
-            >span{
+            >a{
                 color: #10bfaf;
                 padding-left:5px;
             }

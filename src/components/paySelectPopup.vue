@@ -53,11 +53,11 @@ export default {
                         "productIdCountList": [{
                             "productId": `${p_id}`,
                             "count": "1",
-                            "rawData": "coinProduct"
+                            "rawData": ''
                         }],
                         "receiverId": "0",
                         "paymentType": paymentType,
-                        "extraData": '',
+                        "extraData": '11111',
                         "udid": udid
                     }).then((res)=>{
                         if(res.status!=='success'){
@@ -69,6 +69,7 @@ export default {
         },
         listenPayFinish(){
             console.log('监听支付成功回调');
+            // alert('成功回调')
             let self = this;
             lz.on('payFinish', (ret) => {
                 console.log(ret)
