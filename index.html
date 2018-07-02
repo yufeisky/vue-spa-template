@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>首充礼包</title>
     <link rel="stylesheet" href="//fepublic.lizhi.fm/iconfont/index.css">
@@ -14,28 +15,30 @@
         })();
     </script>
     <script>
-      if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
-          var version = parseFloat(RegExp.$1);
-          if (version > 2.3) {
-              var phoneScale = parseInt(window.screen.width) * 0.8  / 300;
-              document.write('<meta name="viewport" content="width=300, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
-          } else {
-              document.write('<meta name="viewport" content="width=300, target-densitydpi=device-dpi">');
-          }
-      } else {
-          document.write('<meta name="viewport" content="width=300, user-scalable=no, target-densitydpi=device-dpi">');
-      }
+        if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                var phoneScale = parseInt(window.screen.width) * 0.8 / 300;
+                document.write('<meta name="viewport" content="width=300, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+            } else {
+                document.write('<meta name="viewport" content="width=300, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=300, user-scalable=no, target-densitydpi=device-dpi">');
+        }
 
-      // window.onerror = function(a, b, c) {
-      //     alert(a);
-      //     alert(b);
-      //     alert(c);
-      // }
-  </script>
-  </head>
-  <body>
+        // window.onerror = function(a, b, c) {
+        //     alert(a);
+        //     alert(b);
+        //     alert(c);
+        // }
+    </script>
+</head>
+
+<body>
     <div id="app">
     </div>
     <!-- built files will be auto injected -->
-  </body>
+</body>
+
 </html>

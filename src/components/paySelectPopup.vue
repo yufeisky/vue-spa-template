@@ -30,6 +30,9 @@ export default {
         },
         'payFinishCallback':{
             type:Function
+        },
+        'liveId':{
+            type:String
         }
     },
     computed:{
@@ -45,10 +48,14 @@ export default {
         },
         pay(paymentType){
             console.log('paymentType',paymentType)
+            let self = this;
             let p_id = this.productId;
             lz.getUdid().then((res)=>{
                 let udid = res.udid;
                 if(udid){
+                    let extraData = {
+                        liveId:self.liveId
+                    }
                     lz.requestBuyProduct({
                         "productIdCountList": [{
                             "productId": `${p_id}`,
@@ -57,7 +64,7 @@ export default {
                         }],
                         "receiverId": "0",
                         "paymentType": paymentType,
-                        "extraData": '11111',
+                        "extraData": `${JSON.stringify(extraData)}`,
                         "udid": udid
                     }).then((res)=>{
                         if(res.status!=='success'){
@@ -72,8 +79,10 @@ export default {
             // alert('成功回调')
             let self = this;
             lz.on('payFinish', (ret) => {
-                console.log(ret)
-                self.payFinishCallback&&self.payFinishCallback.call&&self.payFinishCallback(ret);
+                // alert(JSON.stringify(ret))
+                if(ret.status=='success'){
+                    self.payFinishCallback&&self.payFinishCallback.call&&self.payFinishCallback(ret);
+                }
             })
         },
         // supportPayType(){

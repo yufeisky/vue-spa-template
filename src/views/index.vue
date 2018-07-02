@@ -14,7 +14,7 @@
         <label @click="toggleProtocol"><i class="lzIcon-status-tick_circle_fill icon_proto" :class="`${isAgree?'yes':''}`"></i>我已阅读并同意</label>
         <a href="javascript:;" @click="toProtocolPage">购买服务协议</a>
     </div>
-    <paySelectPopup :payFinishCallback="payFinish" :productId="productId"/>
+    <paySelectPopup :payFinishCallback="payFinish" :productId="productId" :liveId="liveId" />
   </div>
 </template>
 
@@ -69,24 +69,32 @@
       payFinish(ret){
         let self = this;
         self.closePayPopup();
+        lz.popupLiveGiftDialog({
+                "liveId": `${self.liveId}`, // 转为字符串的liveId
+                "tabPosition": 0 //礼物选中的tab，指第一个tab
+        }).then((ret)=>{
+            // alert(JSON.stringify(ret))
+        })
         self.$router.replace('success');
       },
       toProtocolPage(){
           let self = this;
-          lz.popupLiveGiftDialog({
-                "liveId": `${self.liveId}`, // 转为字符串的liveId
-                "tabPosition": 0 //礼物选中的tab，指第一个tab
-          })
-        //   lz.toAction({
-        //         "action":{
-        //             "type": 7,
-        //             "url": "https://short.lizhi.fm/payment/coin-service.html",
-        //             "urlShareable": false, // 表示内部打开url是否可分享，默认为true
-        //             "isFull" : false, // 默认false, 不全屏。
-        //             "isLight" : false, // 默认false，显示深色icon。尽可能适配系统状态栏。仅isFull=true时有效。
-        //             "wk" : true
-        //         } 
-        //     })
+        //   lz.popupLiveGiftDialog({
+        //         "liveId": `${self.liveId}`, // 转为字符串的liveId
+        //         "tabPosition": 0 //礼物选中的tab，指第一个tab
+        //   }).then((ret)=>{
+        //       alert(JSON.stringify(ret))
+        //   })
+          lz.toAction({
+                "action":{
+                    "type": 7,
+                    "url": "https://short.lizhi.fm/payment/coin-service.html",
+                    "urlShareable": false, // 表示内部打开url是否可分享，默认为true
+                    "isFull" : false, // 默认false, 不全屏。
+                    "isLight" : false, // 默认false，显示深色icon。尽可能适配系统状态栏。仅isFull=true时有效。
+                    "wk" : true
+                } 
+            })
       },
       setLiveId(){
         let liveId = getSearchParam('liveId');
