@@ -69,6 +69,7 @@ export default {
                     }).then((res)=>{
                         if(res.status!=='success'){
                             console.log('requestBuyProductCALL',JSON.stringify(res));
+                            // alert(res.status);
                         }
                     })
                 }

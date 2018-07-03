@@ -1,5 +1,5 @@
 <template>
-  <div class="first_recharge">
+  <div class="first_recharge" v-if="isReady">
     <c-title :text="title" :type="`pay`"></c-title>
     <div class="desc">首次支付1元，即享价值百元豪华礼包</div>
     <div class="gift_box">
@@ -41,6 +41,9 @@
         },
         liveId(){
             return this.$store.state.index.liveId
+        },
+        isReady(){
+            return this.$store.state.index.isReady
         }
     },
     methods: {
@@ -96,20 +99,43 @@
                 } 
             })
       },
-      setLiveId(){
+      getPageData(){
+        let self = this;
         let liveId = getSearchParam('liveId');
         let taskId = getSearchParam('taskId');
-        this.$store.commit('setUrlParm',{
-            liveId,
-            taskId
-        });
+        // alert('getToken')
+        lz.ready(()=>{
+            // alert('ready')
+            lz.getToken().then((ret)=>{
+                // alert(JSON.stringify(ret))
+                if(ret.status==='success'){
+                    let token = ret.token;
+                    self.$store.commit('setUrlParm',{
+                        liveId,
+                        taskId,
+                        token
+                    });
+                    self.$store.dispatch('getGiftData');                
+                }   
+            })
+        })
+        
+
+        //本地调试代码
+        let NODE_ENV = process.env.NODE_ENV;
+        if(NODE_ENV==='development'){
+            self.$store.commit('setUrlParm',{
+                    liveId,
+                    taskId,
+                    token:'testToken'
+            });
+            self.$store.dispatch('getGiftData'); 
+        }
       }
     },
     mounted () {
         let self = this;
-        this.setLiveId();        
-        this.$store.dispatch('getGiftData');
-
+        this.getPageData();        
     },
     components: {cTitle,item,paySelectPopup}
   }

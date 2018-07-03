@@ -23,15 +23,15 @@ module.exports = {
                 "productId": "2604096572172069939",
                 "rewardList": [{
                     url: "http://sfestival.lizhi.fm/static/public/luckdraw.png",
-                    name: "哈哈勋章1",
+                    title: "哈哈勋章1",
                     num: 1
                 }, {
                     url: "http://sfestival.lizhi.fm/static/public/luckdraw.png",
-                    name: "哈哈勋章2",
+                    title: "哈哈勋章2",
                     num: 2
                 }, {
                     url: "http://sfestival.lizhi.fm/static/public/luckdraw.png",
-                    name: "哈哈勋章3",
+                    title: "哈哈勋章3",
                     num: 3
                 }]
             }
